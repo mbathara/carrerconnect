@@ -84,6 +84,7 @@ let userScores = {
     social: 0,
     analytical: 0
 };
+let currentUserEmail = null;
 
 // UI Elements
 const heroSection = document.getElementById('hero');
@@ -108,6 +109,8 @@ const jobRecommendations = document.getElementById('job-recommendations');
 const analysisText = document.getElementById('analysis-text');
 const nav = document.querySelector('nav');
 const loginLogoutLink = document.getElementById('login-logout-link');
+const restartTestBtn = document.getElementById('restart-test-btn');
+const saveResultsBtn = document.getElementById('save-results-btn');
 
 // Handle Navigation
 function showSection(sectionId) {
@@ -239,6 +242,69 @@ function showResults() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+function restartQuiz() {
+    currentStep = 0;
+    userScores = {
+        tech: 0,
+        creative: 0,
+        social: 0,
+        analytical: 0
+    };
+    showSection('assessment');
+    renderQuestion();
+}
+
+restartTestBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    restartQuiz();
+});
+
+saveResultsBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    if (!currentUserEmail) {
+        alert('Silakan login terlebih dahulu untuk menyimpan hasil.');
+        showSection('login');
+        return;
+    }
+
+    const winnerData = resultsData.find(r => r.title === resultTitle.innerText) || resultsData[0];
+
+    saveResultsBtn.disabled = true;
+    saveResultsBtn.innerText = 'Menyimpan...';
+
+    const payload = {
+        email: currentUserEmail,
+        result: {
+            title: resultTitle.innerText,
+            description: analysisText.innerText,
+            scores: userScores
+        }
+    };
+
+    console.log('Sending results payload:', payload);
+
+    try {
+        const response = await fetch('api/save_results.php', {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+        console.log('Save results response:', data);
+        if (data.status === 'success') {
+            alert('Hasil berhasil disimpan ke database!');
+            showSection('hero'); // Otomatis kembali ke beranda
+        } else {
+            alert(data.message);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Gagal menyimpan hasil.');
+    } finally {
+        saveResultsBtn.disabled = false;
+        saveResultsBtn.innerText = 'Simpan Hasil';
+    }
+});
+
 // Handle Login Submit
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -258,6 +324,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
         if (data.status === 'success') {
             alert('Login Berhasil!');
+            currentUserEmail = email; // Simpan email user yang sedang login
             nav.classList.remove('hidden');
             showSection('hero');
         } else {
@@ -301,6 +368,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 
         if (data.status === 'success') {
             document.getElementById('user-email-display').innerText = email;
+            currentUserEmail = email; // Simpan email calon user
             alert('Pendaftaran berhasil! Kode verifikasi telah dikirim.');
             showSection('verification');
         } else {
@@ -335,6 +403,10 @@ document.getElementById('verification-form').addEventListener('submit', async (e
 
         if (data.status === 'success') {
             alert('Akun berhasil diverifikasi! Selamat datang.');
+            // currentUserEmail sudah diset saat register, tapi kita pastikan lagi
+            const email = document.getElementById('user-email-display').innerText.trim();
+            currentUserEmail = email;
+
             nav.classList.remove('hidden');
             showSection('hero');
         } else {
