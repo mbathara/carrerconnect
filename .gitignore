@@ -1,0 +1,11 @@
+# Konfigurasi Berisi API Key
+config.php
+
+# Database Sementara dan Log
+database/*.json
+database/*.log
+
+# Folder Lainnya (jika ada)
+.gemini/
+.env
+node_modules/

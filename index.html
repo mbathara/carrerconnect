@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareerConnect AI - Temukan Bakat dan Karir Impianmu</title>
+    <meta name="description"
+        content="AI cerdas untuk menentukan minat dan bakat serta memberikan rekomendasi karir yang tepat untuk masa depanmu.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="cursor-glow"></div>
+
+    <nav class="hidden">
+        <div class="container nav-content">
+            <div class="logo">
+                <span class="gradient-text">Career</span>Connect
+            </div>
+            <div class="nav-links">
+                <a href="#hero">Beranda</a>
+                <a href="#login" id="login-logout-link" class="nav-login">Login</a>
+                <a href="#assessment" class="btn-primary-sm">Mulai Tes</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero hidden">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="badge-new">✨ Powered by Advanced AI</div>
+                    <h1>Temukan <span class="gradient-text">Potensi Tersembunyimu</span> dengan AI</h1>
+                    <p>Bosan bingung memilih karir? CareerConnect menggunakan algoritma AI cerdas untuk menganalisis
+                        minat dan bakatmu lewat beberapa pertanyaan sederhana.</p>
+                    <div class="hero-actions">
+                        <button id="start-btn" class="btn-primary">Mulai Tes Sekarang <i
+                                data-lucide="arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="glass-card main-visual">
+                        <div class="ai-orb"></div>
+                        <div class="floating-icons">
+                            <div class="icon-chip" style="top: 10%; right: -20px;"><i data-lucide="brain"></i></div>
+                            <div class="icon-chip" style="bottom: 20%; left: -30px;"><i data-lucide="rocket"></i></div>
+                            <div class="icon-chip" style="top: 40%; left: -50px;"><i data-lucide="briefcase"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="login-section">
+            <div class="container container-sm">
+                <div class="glass-card login-card">
+                    <div class="login-header">
+                        <h2>Selamat Datang Kembali</h2>
+                        <p>Masuk ke akun CareerConnect kamu</p>
+                    </div>
+                    <form id="login-form" class="login-form">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="nama@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">Masuk <i data-lucide="log-in"></i></button>
+                    </form>
+                    <div class="login-footer">
+                        <p>Belum punya akun? <a href="#" id="to-register" class="gradient-text">Daftar Sekarang</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register" class="register-section hidden">
+            <div class="container container-sm">
+                <div class="glass-card login-card">
+                    <div class="login-header">
+                        <h2>Buat Akun Baru</h2>
+                        <p>Mulai perjalanan karirmu bersama AI</p>
+                    </div>
+                    <form id="register-form" class="login-form">
+                        <div class="form-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" placeholder="nama@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" placeholder="••••••••" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-confirm-password">Konfirmasi Password</label>
+                            <input type="password" id="reg-confirm-password" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">Daftar Sekarang <i
+                                data-lucide="user-plus"></i></button>
+                    </form>
+                    <div class="login-footer">
+                        <p>Sudah punya akun? <a href="#" id="to-login" class="gradient-text">Masuk Sekarang</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Verification Section -->
+        <section id="verification" class="verification-section hidden">
+            <div class="container container-sm">
+                <div class="glass-card login-card">
+                    <div class="login-header">
+                        <div class="success-icon" style="background: rgba(99, 102, 241, 0.1); color: var(--primary);">
+                            <i data-lucide="mail"></i>
+                        </div>
+                        <h2>Verifikasi Email</h2>
+                        <p>Kami telah mengirimkan kode verifikasi ke <strong id="user-email-display">email anda</strong>
+                        </p>
+                    </div>
+                    <form id="verification-form" class="login-form">
+                        <div class="form-group">
+                            <label for="verify-code">Kode Verifikasi</label>
+                            <input type="text" id="verify-code" placeholder="123456" maxlength="6"
+                                style="text-align: center; letter-spacing: 0.5rem; font-size: 1.5rem;" required>
+                        </div>
+                        <button type="submit" class="btn-primary w-full">Verifikasi Akun <i
+                                data-lucide="check"></i></button>
+                    </form>
+                    <div class="login-footer">
+                        <p>Tidak menerima kode? <a href="#" class="gradient-text">Kirim Ulang</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assessment Section -->
+        <section id="assessment" class="assessment hidden">
+            <div class="container container-sm">
+                <div class="glass-card quiz-card">
+                    <div class="progress-bar-container">
+                        <div class="progress-info">
+                            <span id="step-info">Pertanyaan 1 dari 10</span>
+                            <span id="progress-percent">10%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div id="quiz-content" class="quiz-content">
+                        <!-- Questions will be injected here by JS -->
+                        <h2 id="question-text" class="question-text">Apa aktivitas yang paling membuatmu bersemangat?
+                        </h2>
+                        <div id="options-container" class="options-grid">
+                            <!-- Options will be injected here -->
+                        </div>
+                    </div>
+
+                    <div class="quiz-footer">
+                        <button id="prev-btn" class="btn-secondary hidden"><i data-lucide="chevron-left"></i>
+                            Kembali</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="results hidden">
+            <div class="container container-sm">
+                <div class="glass-card result-card">
+                    <div class="result-header">
+                        <div class="success-icon">
+                            <i data-lucide="party-popper"></i>
+                        </div>
+                        <h2>Analisis Selesai!</h2>
+                        <p>Berdasarkan jawabanmu, kamu memiliki profil sebagai:</p>
+                        <h1 id="result-title" class="gradient-text">Creative Visionary</h1>
+                    </div>
+
+                    <div class="result-body">
+                        <h3>Rekomendasi Karir:</h3>
+                        <div id="job-recommendations" class="job-list">
+                            <!-- Job items will be injected here -->
+                        </div>
+
+                        <div class="analysis-box">
+                            <h4>Mengapa ini cocok untukmu?</h4>
+                            <p id="analysis-text">Jawabanmu menunjukkan preferensi kuat pada penyelesaian masalah
+                                kreatif dan kemampuan komunikasi visual yang tinggi.</p>
+                        </div>
+                    </div>
+
+                    <div class="result-actions">
+                        <button onclick="location.reload()" class="btn-secondary">Ulangi Tes</button>
+                        <button class="btn-primary">Simpan Hasil</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 CareerConnect AI. Dibuat dengan ✨ untuk masa depanmu.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>
